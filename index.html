@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolHub | Discover AI Tools</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h1 class="logo">ToolHub</h1>
+        <div class="nav-links">
+            <button onclick="switchTab('user')" class="btn-nav">Explore</button>
+            <button onclick="switchTab('admin')" class="btn-primary-black">Admin Panel</button>
+        </div>
+    </nav>
+
+    <section id="user-view" class="content-section">
+        <header class="header-main">
+            <h2 class="title-lg">Discover AI Tools</h2>
+            <div class="filter-bar">
+                <select id="filter-category" onchange="loadTools()" class="select-input">
+                    <option value="">All Categories</option>
+                    <option value="Productivity">Productivity</option>
+                    <option value="Design">Design</option>
+                    <option value="Development">Development</option>
+                    <option value="NLP">NLP</option>
+                </select>
+                <select id="filter-pricing" onchange="loadTools()" class="select-input border-left">
+                    <option value="">Any Price</option>
+                    <option value="Free">Free</option>
+                    <option value="Freemium">Freemium</option>
+                    <option value="Paid">Paid</option>
+                </select>
+            </div>
+        </header>
+        <div id="tools-grid" class="tools-grid"></div>
+    </section>
+
+    <section id="admin-view" class="content-section hidden">
+        <h2 class="title-lg">Admin Dashboard</h2>
+        <div class="form-container">
+            <h3 style="margin-bottom: 1.5rem;">Add New AI Tool</h3>
+            <form id="add-tool-form" class="grid-form">
+                <div class="input-group">
+                    <label>Tool Name</label>
+                    <input type="text" id="tool-name" placeholder="e.g. ChatGPT" class="input-field" required>
+                </div>
+                <div class="input-group">
+                    <label>Category</label>
+                    <input type="text" id="tool-category" placeholder="e.g. NLP" class="input-field" required>
+                </div>
+                <div class="input-group col-span-2">
+                    <label>Pricing Type</label>
+                    <select id="tool-pricing" class="input-field">
+                        <option value="Free">Free</option>
+                        <option value="Freemium">Freemium</option>
+                        <option value="Paid">Paid</option>
+                    </select>
+                </div>
+                <div class="input-group col-span-2">
+                    <label>Use Case Description</label>
+                    <textarea id="tool-usecase" placeholder="Describe the tool..." class="input-field textarea-md"
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn-primary-blue col-span-2">Add New Tool</button>
+            </form>
+            <div class="form-container" style="margin-top: 2rem;">
+                <h3 class="title-sm">Pending Reviews</h3>
+                <br><br>
+                <div id="pending-reviews-list" class="admin-list">
+                    <p style="color: var(--text-muted);">No pending reviews to show.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="review-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modal-tool-name" class="title-md">Submit Review</h3>
+            <input type="hidden" id="modal-tool-id">
+
+            <div class="input-group" style="margin-top: 1.5rem;">
+                <label>Rating (1-5 Stars)</label>
+                <input type="number" id="review-rating" min="1" max="5" value="5" class="input-field">
+            </div>
+
+            <div class="input-group" style="margin: 1rem 0;">
+                <label>Your Comments</label>
+                <textarea id="review-comment" placeholder="Share your experience..."
+                    class="input-field textarea-sm"></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button onclick="closeModal()" class="btn-nav" style="margin:0">Cancel</button>
+                <button onclick="submitReview()" class="btn-primary-black">Post Review</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
